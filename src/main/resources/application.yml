@@ -1,0 +1,75 @@
+server:
+  port: 8083
+spring:
+  profiles:
+    active: native
+  application:
+    name: READER
+  devtools:
+    livereload:
+      enabled: true
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+  datasource:
+    url: jdbc:mysql://localhost:3306/school?allowPublicKeyRetrieval=true&&useSSL=false
+    username: root
+    # password: ENC(V2AsWxtPB6VKZWAotZOyvRoYt7riXukC)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: 
+        '[format_sql]': true
+        '[use_sql_comments]': true
+        '[order_insert]': true
+        '[order_updates]': true
+        '[generate_statistics]': true
+data: 
+  mongodb: 
+    database: ReaderService
+    host: localhost
+    port: 27017
+eureka:
+  client:
+    register-with-registry: true
+    fetch-registry: true
+    service-url: 
+      defaultzone: http://localhost:8761/eureka/
+    instance:
+      hostname: localhost
+jasypt:
+  encryptor:
+    password: secret
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+logging:
+  file:
+    name: logs/student.log
+    max-size: 10MB
+    max-history: 365
+  level:
+    root: INFO
+    '[org.hibernate.sql]': DEBUG
+    '[org.hibernate.type.descriptor.sql]': TRACE
+management:
+  endpoints:
+    web:
+      base-path: /act
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    db:
+      enabled: true
+    diskspace:
+      enabled: true
+    ping:
+      enabled: true
+    livenessstate:
+      enabled: true
