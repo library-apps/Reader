@@ -24,7 +24,7 @@ public class ReaderDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class UpdateReader{
-        private Integer id;
+        private String _id;
         private String reader_name;
         private String address;
         private String email;

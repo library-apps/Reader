@@ -4,6 +4,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.SneakyThrows;
 import lombok.val;
@@ -44,13 +45,13 @@ public class ReaderService {
         return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(res);
     }
     //update reader
-    public ResponseEntity<Object> updateReader(UpdateReader dto){
+    public ResponseEntity<Object> updateReader(String id, UpdateReader dto){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, Object> res = new HashMap<String, Object>();
 
-        val reader = readerRepository.findById(dto.getId()).orElse(null);
+        val reader = readerRepository.findById(dto.get_id()).orElse(null);
         
         if(Optional.ofNullable(reader).isPresent()){
             reader.setReader_name(dto.getReader_name());
@@ -73,7 +74,7 @@ public class ReaderService {
         return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(res);
     }
     //delete reader
-    public ResponseEntity<Object> deleteReader(Integer id){
+    public ResponseEntity<Object> deleteReader(String id){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -116,14 +117,14 @@ public class ReaderService {
 	}
 
     @SneakyThrows(Exception.class)
-	public ResponseEntity<Object> getReader(Integer id) {
+	public ResponseEntity<Object> getReader(@PathVariable("id") String id) {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
+        Map<String, Object> res = new HashMap<String, Object>();
+		Optional<Reader> reader = readerRepository.findById(id);
 
-		Map<String, Object> res = new HashMap<String, Object>();
-
-		val reader = readerRepository.findById(id);
+		
 
 		res.put("code", HttpStatus.OK.value());
 		res.put("message", "success");

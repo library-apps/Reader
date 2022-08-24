@@ -20,7 +20,7 @@ public class ReaderController {
     
     @SneakyThrows(Exception.class)
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getReader(@PathVariable(value="id") Integer id){
+    public ResponseEntity<Object> getReader(@PathVariable(value="id") String id){
         log.info("GET http://localhost:8080/api/v1/book/{} is called", id);
 		return readerService.getReader(id);
     }
@@ -36,14 +36,14 @@ public class ReaderController {
     //PUT
     @SneakyThrows(Exception.class)
     @PutMapping(value = "/{id_book}")
-    public ResponseEntity<Object> updateReader(@RequestBody UpdateReader dto){
+    public ResponseEntity<Object> updateReader(@PathVariable("id") String id, @RequestBody UpdateReader dto){
         log.info("PUT http://localhost:8080/api/v1/book is called");
-        return readerService.updateReader(dto);
+        return readerService.updateReader(id, dto);
     }
     //DELETE
     @SneakyThrows(Exception.class)
     @DeleteMapping(value = "/{id_book}")
-    public ResponseEntity<Object> deleteReader(@PathVariable(name = "id") Integer id){
+    public ResponseEntity<Object> deleteReader(@PathVariable(name = "id") String id){
         log.info("DELETE http://localhost:8080/api/v1/book is called");
         return readerService.deleteReader(id);
     }

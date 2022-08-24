@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8099
 spring:
   profiles:
     active: native
@@ -47,14 +47,20 @@ jasypt:
     algorithm: PBEWithMD5AndDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
 logging:
-  file:
-    name: logs/student.log
-    max-size: 10MB
-    max-history: 365
+  # file:
+  #   name: logs/student.log
+  #   max-size: 10MB
+  #   max-history: 365
   level:
-    root: INFO
-    '[org.hibernate.sql]': DEBUG
-    '[org.hibernate.type.descriptor.sql]': TRACE
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
+    # root: INFO
+    # '[org.hibernate.sql]': DEBUG
+    # '[org.hibernate.type.descriptor.sql]': TRACE
 management:
   endpoints:
     web:
