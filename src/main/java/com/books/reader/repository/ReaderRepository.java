@@ -7,5 +7,6 @@ import com.books.reader.model.Reader;
 
 @Repository
 public interface ReaderRepository extends MongoRepository<Reader, Integer> {
-    
+    // public Role findByName(String name);
+    // public Reader findByReader(String reader_name);
 }
